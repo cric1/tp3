@@ -1,38 +1,14 @@
-﻿
-
-@model IEnumerable<JsonDemo.Models.Student>
-
-@{
+﻿@{
     ViewBag.Title = "Liste des étudiants";
-    var yearsList = ((List<int>)Session["StudentsYearsList"]).OrderByDescending(i => i);
 }
-
-@foreach (int year in yearsList)
-{
-    var students = Model.Where(s => s.Year == year);
-    if (students.Count() > 0)
-    {
-        <details open>
-            <summary>Cohorte @year</summary>
-            @foreach (var item in students)
-            {
-                <div class="StudentListLayout">
-                    <a href="@Url.Action("Details", new { id = item.Id })">
-                        <div style="display:flex">
-                            <span class="studentCode">@item.Code</span>
-                            <div>@item.LastName @item.FirstName</div>
-                        </div>
-                    </a>
-                </div>
-            }
-        </details>
-    }
-}
+<div id="StudentsPanel"></div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
+            let StudentsPanel = new AutoRefreshedPanel("StudentsPanel", "@Url.Action("GetStudents")", 5 /*seconds*/);
+
             var timeout = null;
             $('#searchToken').keyup(function () {
                 clearTimeout(timeout);

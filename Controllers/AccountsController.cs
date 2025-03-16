@@ -69,6 +69,10 @@ namespace JsonDemo.Controllers
                 {
                     return Redirect("/Accounts/Login?message=Votre compte a été bloqué!&success=false");
                 }
+                if (!connectedUser.Verified)
+                {
+                    return Redirect("/Accounts/Login?message=Votre compte n'a pas été vérifié. Veuillez consultez le courriel de confirmation d'adresse de courriel.!&success=false");
+                }
                 DB.Users.SetOnline(Session["ConnectedUser"], true);
             }
             return RedirectToAction("Index", "Students");
@@ -85,7 +89,7 @@ namespace JsonDemo.Controllers
         {
             DB.Users.Add(user);
             AccountsEmailing.SendEmailVerification(Url.Action("VerifyUser", "Accounts", null, Request.Url.Scheme), user);
-            return Redirect("/Accounts/Login?message=Création de compte effectué avec succès! Un courriel de confirmation d'adresse vous a été envoyé.");
+            return Redirect("/Accounts/Login?message=Création de compte effectuée avec succès! Un courriel de confirmation d'adresse vous a été envoyé.");
         }
         public ActionResult VerifyUser(string code)
         {
@@ -144,8 +148,9 @@ namespace JsonDemo.Controllers
                 user.Password = passwordView.Password;
                 DB.Users.ChangePassword(user);
                 AccountsEmailing.SendEmailUserStatusChanged("Votre mot de passe a été modifiée avec succès!", user);
-                return Redirect("/Accounts/Login?message=Votre mot de passe a été modifiée avec succès!");
-            } else
+                return Redirect("/Accounts/Login?message=Votre mot de passe a été modifié avec succès!");
+            }
+            else
                 View(passwordView);
             return Redirect("/Accounts/Login?message=Commande de changement de mot de passe introuvable!&success=false");
 
@@ -240,57 +245,69 @@ namespace JsonDemo.Controllers
         [AdminAccess]
         public ActionResult TogglePromoteUser(int id)
         {
-            User user = DB.Users.Get(id);
-            if (user != null)
+            if (id != 1)
             {
-                user.Admin = !user.Admin;
-                DB.Users.Update(user);
-                string message = user.Admin ?
-                    "Vous avez reçu les droits administrateur" :
-                    "Vous n'avez plus les droist administrateur";
-                AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                User user = DB.Users.Get(id);
+                if (user != null)
+                {
+                    user.Admin = !user.Admin;
+                    DB.Users.Update(user);
+                    string message = user.Admin ?
+                        "Vous avez reçu les droits administrateur" :
+                        "Vous n'avez plus les droits administrateur";
+                    AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                }
             }
             return null;
         }
         [AdminAccess]
         public ActionResult ToggleBlockUser(int id)
         {
-            User user = DB.Users.Get(id);
-            if (user != null)
+            if (id != 1)
             {
-                user.Blocked = !user.Blocked;
-                user.Online = false;
-                DB.Users.Update(user);
-                string message = user.Blocked ?
-                    "Votre compte a été bloqué par l'administrateur du site." :
-                    "Votre compte a été débloqué par l'administrateur du site.";
-                AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                User user = DB.Users.Get(id);
+                if (user != null)
+                {
+                    user.Blocked = !user.Blocked;
+                    user.Online = false;
+                    DB.Users.Update(user);
+                    string message = user.Blocked ?
+                        "Votre compte a été bloqué par l'administrateur du site." :
+                        "Votre compte a été débloqué par l'administrateur du site.";
+                    AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                }
             }
             return null;
         }
         [AdminAccess]
         public ActionResult ForceVerifyUser(int id)
         {
-            User user = DB.Users.Get(id);
-            if (user != null)
+            if (id != 1)
             {
-                user.Verified = true;
-                DB.Users.Update(user);
-                string message = "Votre adresse de courriel a été confirmée par l'administrateur du site.";
-                AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                User user = DB.Users.Get(id);
+                if (user != null)
+                {
+                    user.Verified = true;
+                    DB.Users.Update(user);
+                    string message = "Votre adresse de courriel a été confirmée par l'administrateur du site.";
+                    AccountsEmailing.SendEmailUserStatusChanged(message, user);
 
+                }
             }
             return null;
         }
         [AdminAccess]
         public ActionResult DeleteUser(int id)
         {
-            User user = DB.Users.Get(id);
-            if (user != null)
+            if (id != 1)
             {
-                string message = "Votre compte a été effacé par l'administrateur du site.";
-                DB.Users.Delete(id);
-                AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                User user = DB.Users.Get(id);
+                if (user != null)
+                {
+                    string message = "Votre compte a été effacé par l'administrateur du site.";
+                    DB.Users.Delete(id);
+                    AccountsEmailing.SendEmailUserStatusChanged(message, user);
+                }
             }
             return null;
         }

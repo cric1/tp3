@@ -253,6 +253,9 @@
     <Content Include="Views\Accounts\ManageUsers.cshtml" />
     <Content Include="Views\Accounts\RenewPassword.cshtml" />
     <Content Include="Views\Accounts\RenewPasswordCommand.cshtml" />
+    <Content Include="Views\Students\GetStudent.cshtml" />
+    <Content Include="Views\Students\GetRegistrations.cshtml" />
+    <Content Include="Views\Students\GetStudents.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
