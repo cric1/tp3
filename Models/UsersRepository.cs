@@ -129,6 +129,12 @@ namespace JsonDemo.Models
                 user.Password = HashPassword(user.Password);
             return base.Update(user);
         }
+        public bool ChangePassword(User user)
+        {
+            user.Password = HashPassword(user.Password);
+            return base.Update(user);
+        }
+
         public override bool Delete(int userId)
         {
             try

@@ -143,10 +143,12 @@
     <Compile Include="Models\CoursesRepository.cs" />
     <Compile Include="DAL\DB.cs" />
     <Compile Include="Models\DateExt.cs" />
+    <Compile Include="Models\EmailView.cs" />
     <Compile Include="Models\LoginCredential.cs" />
     <Compile Include="Models\NextSession.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="DAL\Repository.cs" />
+    <Compile Include="Models\RenewPasswordView.cs" />
     <Compile Include="Models\SelectListUtilities.cs" />
     <Compile Include="Models\SMTP.cs" />
     <Compile Include="Models\Student.cs" />
@@ -188,6 +190,8 @@
     <Content Include="App_Data\Allocations.json" />
     <Content Include="App_Data\Teachers.json" />
     <Content Include="App_Data\Users.json" />
+    <Content Include="App_Data\UnverifiedEmails.json" />
+    <Content Include="App_Data\RenewPasswordCommands.json" />
     <None Include="Properties\PublishProfiles\Registar2025 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\imageControl-2.0.js" />
@@ -247,6 +251,8 @@
     <Content Include="Views\Accounts\UserAlert.cshtml" />
     <Content Include="Views\Accounts\GetUsers.cshtml" />
     <Content Include="Views\Accounts\ManageUsers.cshtml" />
+    <Content Include="Views\Accounts\RenewPassword.cshtml" />
+    <Content Include="Views\Accounts\RenewPasswordCommand.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

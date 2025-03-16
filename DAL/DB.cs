@@ -38,6 +38,8 @@ namespace JsonDemo.Models
         static public Repository<UnverifiedEmail> UnverifiedEmails { get; set; }
             = new Repository<UnverifiedEmail>();
 
+        static public Repository<RenewPasswordCommand> RenewPasswordCommands { get; set; }
+            = new Repository<RenewPasswordCommand>();
         #endregion
     }
 }

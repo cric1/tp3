@@ -99,24 +99,71 @@ namespace JsonDemo.Controllers
                 {
                     newlySubscribedUser.Verified = true;
                     DB.Users.Update(newlySubscribedUser);
+                    AccountsEmailing.SendEmailUserStatusChanged("Votre adresse de courriel a été confirmée.", newlySubscribedUser);
                     return Redirect("/Accounts/Login?message=Votre adresse de courriel a été vérifiée avec succès!");
                 }
             }
             return Redirect("/Accounts/Login?message=Erreur de vérification de courriel!&success=false");
         }
+
+        public ActionResult RenewPasswordCommand()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult RenewPasswordCommand(string Email)
+        {
+            if (ModelState.IsValid)
+            {
+                AccountsEmailing.SendEmailRenewPasswordCommand(Url.Action("RenewPassword", "Accounts", null, Request.Url.Scheme), Email);
+                return Redirect("/Accounts/Login?message=Un courriel de commande de changement de mot de passe vous a été envoyé.");
+            }
+            return View(Email);
+        }
+        public ActionResult RenewPassword(string code)
+        {
+            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == code).First();
+            if (command != null)
+            {
+                RenewPasswordView passwordView = new RenewPasswordView();
+                return View(passwordView);
+            }
+            return Redirect("/Accounts/Login?message=Commande de changement de mot de passe introuvable!&success=false");
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult RenewPassword(RenewPasswordView passwordView)
+        {
+            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == passwordView.Code).First();
+            if (ModelState.IsValid)
+            {
+                User user = DB.Users.Get(command.UserId);
+                DB.RenewPasswordCommands.Delete(command.Id);
+                user.Password = passwordView.Password;
+                DB.Users.ChangePassword(user);
+                AccountsEmailing.SendEmailUserStatusChanged("Votre mot de passe a été modifiée avec succès!", user);
+                return Redirect("/Accounts/Login?message=Votre mot de passe a été modifiée avec succès!");
+            } else
+                View(passwordView);
+            return Redirect("/Accounts/Login?message=Commande de changement de mot de passe introuvable!&success=false");
+
+        }
+
         public ActionResult VerifyNewEmail(string code)
         {
             UnverifiedEmail UnverifiedEmail = DB.UnverifiedEmails.ToList().Where(u => u.VerificationCode == code).FirstOrDefault();
             if (UnverifiedEmail != null)
             {
                 User user = DB.Users.Get(UnverifiedEmail.UserId);
-
                 if (user != null)
                 {
                     user.Verified = true;
                     user.Email = UnverifiedEmail.Email;
                     DB.UnverifiedEmails.Delete(UnverifiedEmail.Id);
                     DB.Users.Update(user);
+                    AccountsEmailing.SendEmailUserStatusChanged("Votre changement d'adresse de courriel a été effectuée avec succès!", user);
                     return Redirect("/Accounts/Login?message=Votre adresse de courriel a été modifiée avec succès!");
                 }
             }
@@ -198,6 +245,10 @@ namespace JsonDemo.Controllers
             {
                 user.Admin = !user.Admin;
                 DB.Users.Update(user);
+                string message = user.Admin ?
+                    "Vous avez reçu les droits administrateur" :
+                    "Vous n'avez plus les droist administrateur";
+                AccountsEmailing.SendEmailUserStatusChanged(message, user);
             }
             return null;
         }
@@ -210,6 +261,10 @@ namespace JsonDemo.Controllers
                 user.Blocked = !user.Blocked;
                 user.Online = false;
                 DB.Users.Update(user);
+                string message = user.Blocked ?
+                    "Votre compte a été bloqué par l'administrateur du site." :
+                    "Votre compte a été débloqué par l'administrateur du site.";
+                AccountsEmailing.SendEmailUserStatusChanged(message, user);
             }
             return null;
         }
@@ -221,13 +276,22 @@ namespace JsonDemo.Controllers
             {
                 user.Verified = true;
                 DB.Users.Update(user);
+                string message = "Votre adresse de courriel a été confirmée par l'administrateur du site.";
+                AccountsEmailing.SendEmailUserStatusChanged(message, user);
+
             }
             return null;
         }
         [AdminAccess]
         public ActionResult DeleteUser(int id)
         {
-            DB.Users.Delete(id);
+            User user = DB.Users.Get(id);
+            if (user != null)
+            {
+                string message = "Votre compte a été effacé par l'administrateur du site.";
+                DB.Users.Delete(id);
+                AccountsEmailing.SendEmailUserStatusChanged(message, user);
+            }
             return null;
         }
     }
