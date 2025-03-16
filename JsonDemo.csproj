@@ -256,6 +256,11 @@
     <Content Include="Views\Students\GetStudent.cshtml" />
     <Content Include="Views\Students\GetRegistrations.cshtml" />
     <Content Include="Views\Students\GetStudents.cshtml" />
+    <Content Include="Views\Teachers\GetTeacher.cshtml" />
+    <Content Include="Views\Teachers\GetAllocations.cshtml" />
+    <Content Include="Views\Courses\GetCourses.cshtml" />
+    <Content Include="Views\Courses\GetCourse.cshtml" />
+    <Content Include="Views\Courses\GetRegistrations.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

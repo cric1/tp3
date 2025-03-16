@@ -28,7 +28,6 @@ class AutoRefreshedPanel {
                 },
                 statusCode: {
                     401: function () {
-                        debugger
                         if (EndSessionAction != "")
                             window.location = EndSessionAction + "?message=Votre compte a été bloqué!&success=false";
                         else

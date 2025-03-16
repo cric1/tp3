@@ -72,12 +72,38 @@ namespace JsonDemo.Controllers
             InitSessionVariables();
             return View();
         }
+
+        public ActionResult GetTeacher(bool forceRefresh = false)
+        {
+            if (forceRefresh || DB.Teachers.HasChanged)
+            {
+                if (Session["id"] != null)
+                {
+                    Teacher teacher = DB.Teachers.Get((int)Session["id"]);
+                    return PartialView(teacher);
+                }
+            }
+            return null;
+        }
+
+        public ActionResult GetAllocations(bool forceRefresh = false)
+        {
+            if (forceRefresh || DB.Teachers.HasChanged || DB.Allocations.HasChanged || DB.Courses.HasChanged)
+            {
+                if (Session["id"] != null)
+                {
+                    Teacher teacher = DB.Teachers.Get((int)Session["id"]);
+                    return PartialView(teacher);
+                }
+            }
+            return null;
+        }
+
         public ActionResult Details(int id)
         {
             Teacher teacher = DB.Teachers.Get(id);
             if (teacher != null)
             {
-                string d = teacher.StartDate.ToFrenchDateString();
                 Session["id"] = id;
                 Session["code"] = teacher.Code;
                 return View(teacher);

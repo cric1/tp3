@@ -6,7 +6,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $(document).ready(function () {
+        $(() => {
             let StudentsPanel = new AutoRefreshedPanel("StudentsPanel", "@Url.Action("GetStudents")", 5 /*seconds*/);
 
             var timeout = null;
