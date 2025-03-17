@@ -65,6 +65,10 @@ namespace JsonDemo.Controllers
             }
             else
             {
+                if (connectedUser.IsOnline)
+                {
+                    return Redirect("/Accounts/Login?message=Il y a déjà une session ouverte avec cet usager!&success=false");
+                }
                 if (connectedUser.Blocked)
                 {
                     return Redirect("/Accounts/Login?message=Votre compte a été bloqué!&success=false");
