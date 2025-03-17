@@ -120,8 +120,9 @@
     <Content Include="App_Assets\Teachers\fbb51b24-2763-4d30-b175-6a78856ade4b.jpeg" />
     <Content Include="App_Assets\Teachers\no_avatar.png" />
     <Content Include="App_Assets\Users\03ccc3a4-e11c-41d2-a678-cb47f9a1acd5.jpeg" />
-    <Content Include="App_Assets\Users\7639cf10-f2d1-4cdf-b0ba-2a5a3b764106.jpeg" />
+    <Content Include="App_Assets\Users\174fe702-5d55-48a0-8dac-a5ea13918193.jpeg" />
     <Content Include="App_Assets\Users\79d885f4-f9c3-4cee-b27f-bd5f9f923c21.jpeg" />
+    <Content Include="App_Assets\Users\9f51e02d-4089-4d33-aa3e-62cb925ff185.jpeg" />
     <Content Include="App_Assets\Users\b92612bf-1e79-40df-81c8-9dcd31a129f7.jpeg" />
     <Content Include="App_Assets\Users\no_avatar.png" />
     <Content Include="Content\Accounts.css" />
@@ -193,6 +194,7 @@
     <Content Include="App_Data\UnverifiedEmails.json" />
     <Content Include="App_Data\RenewPasswordCommands.json" />
     <None Include="Properties\PublishProfiles\Registar2025 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Registre-NC-2025 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\imageControl-2.0.js" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
