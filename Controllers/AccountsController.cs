@@ -67,6 +67,7 @@ namespace JsonDemo.Controllers
             {
                 if (connectedUser.IsOnline)
                 {
+                    Session["ConnectedUser"] = null;
                     return Redirect("/Accounts/Login?message=Il y a déjà une session ouverte avec cet usager!&success=false");
                 }
                 if (connectedUser.Blocked)
