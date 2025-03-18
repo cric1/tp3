@@ -22,7 +22,7 @@
             <div class="promoteCmd" userId="@item.Id" title="@promoteTitle l'usager @item.Name">
                 @Helper.Image(@userTypeIcon, "smallAvatar")
             </div>
-            <div class="@(item.Verified ? "" : "forceVerifyCmd")" userId="@item.Id" title="@(item.Verified ? "Compte vérifié" : "Compte non vérifié")">
+            <div class="@(item.Verified ? "" : "forceVerifyCmd")" userId="@item.Id" title="@(item.Verified ? "Compte vérifié" : "Compte non vérifié, forcer la vérification")">
                 @Helper.Image(@verifiedIcon, "xsmallAvatar")
             </div>
             @if (!item.Admin)
