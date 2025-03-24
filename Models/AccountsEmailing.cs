@@ -41,6 +41,11 @@ namespace JsonDemo.Models
     {
         const string ApplicationName = "Gestionnaire de registres";
 
+        public static string GetServerDomaine()
+        {
+            return HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+        }
+
         public static void SendEmailVerification(string ActionURL, User user)
         {
             UnverifiedEmail unverifiedEmail = new UnverifiedEmail();
