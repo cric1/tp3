@@ -70,6 +70,11 @@
                                         <i class="menuIcon fa fa-users"></i> Gestion des usagers...
                                     </a>
                                 </div>
+                                <div class="dropdown-item">
+                                    <a href="/Accounts/LoginsJournal" class="noDecoration">
+                                        <i class="menuIcon fa fa-users"></i> Historique de connexions...
+                                    </a>
+                                </div>
                             }
                             <div class="dropdown-item">
                                 <a href="/Accounts/Logout" class="noDecoration">
@@ -165,13 +170,19 @@
             <div class="menu-icon-layout">
                 <i onclick="history.back()" class="cmdIcon fa fa-times" title="Fermer"></i>
             </div>
-        break;
-    case "renewpassword":
-        <div class="actionTitle">@ViewBag.Title </div>
-        <div class="menu-icon-layout">
-            <i onclick="history.back()" class="cmdIcon fa fa-times" title="Fermer"></i>
-        </div>
-        break;
-}
+            break;
+        case "renewpassword":
+            <div class="actionTitle">@ViewBag.Title </div>
+            <div class="menu-icon-layout">
+                <i onclick="history.back()" class="cmdIcon fa fa-times" title="Fermer"></i>
+            </div>
+            break;
+        case "loginsjournal":
+            <div class="actionTitle">@ViewBag.Title </div>
+            <div class="menu-icon-layout">
+                <i onclick="history.back()" class="cmdIcon fa fa-times" title="Fermer"></i>
+            </div>
+            break;
+    }
 </div>
 

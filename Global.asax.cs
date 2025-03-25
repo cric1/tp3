@@ -18,17 +18,8 @@ namespace JsonDemo
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            List<User> users = new List<User>();
 
-            foreach (User user in DB.Users.ToList())
-            {
-                users.Add(user.Copy());
-            }
-            // Make shure there are no user still online
-            for (var i = 0; i < users.Count; i++)
-            {
-                DB.Users.SetOnline(users[i], false);
-            }
+            DB.Users.ResetAllUsersOnlineStatus();
         }
         protected void Session_Start()
         {

@@ -20,6 +20,9 @@ namespace JsonDemo.Models
         static public UsersRepository Users { get; set; }
             = new UsersRepository();
 
+        static public LoginsRepository Logins { get; set; } 
+            = new LoginsRepository();
+
         static public StudentsRepository Students { get; set; }
             = new StudentsRepository();
 

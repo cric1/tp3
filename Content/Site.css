@@ -329,3 +329,33 @@ fieldset {
     border: 1px solid #ccc;
 }
 
+.loginJournalLayout {
+    display: grid;
+    grid-template-columns: 190px 35px 55px auto auto;
+    align-items: center;
+    height: 50px;
+}
+
+.userItem {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+
+.UserSmallAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 35px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.UserMediumAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}

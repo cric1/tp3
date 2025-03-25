@@ -14,6 +14,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.TimeZoneOffset)
+
     <div class="login-form">
 
         @if (loginMessage != "")
@@ -47,6 +49,8 @@
     <script>
         $(() => {
             noTimeout();
+            // Set client local time zone
+            $("#TimeZoneOffset").val(new Date().getTimezoneOffset() / 60);
 
             if ($("#Password").val() == "")
                 $("#toggleShowPassword").hide();

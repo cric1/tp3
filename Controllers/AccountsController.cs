@@ -43,8 +43,7 @@ namespace JsonDemo.Controllers
             {
                 Email = (string)Session["currentLoginEmail"]
             };
-            User connectedUser = DB.Users.Get(Session["ConnectedUser"] != null ? ((User)Session["ConnectedUser"]).Id : 0);
-            if (connectedUser != null) DB.Users.SetOnline(connectedUser, false);
+            DB.Users.SetOnline(Session["ConnectedUser"], false);
             Session["ConnectedUser"] = null;
             return View(credential);
         }
@@ -52,6 +51,10 @@ namespace JsonDemo.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult Login(LoginCredential credential)
         {
+            DateTime serverDate = DateTime.Now;
+            int serverTimeZoneOffset = serverDate.Hour - serverDate.ToUniversalTime().Hour;
+            Session["TimeZoneOffset"] = -(credential.TimeZoneOffset + serverTimeZoneOffset);
+
             credential.Email = credential.Email.Trim();
             credential.Password = credential.Password.Trim();
             Session["CurrentLoginEmail"] = credential.Email;
@@ -316,5 +319,35 @@ namespace JsonDemo.Controllers
             }
             return null;
         }
+        #region Login journal
+        [AdminAccess]
+        public ActionResult LoginsJournal()
+        {
+            return View();
+        }
+        [AdminAccess] // RefreshTimout = false otherwise periodical refresh with lead to never timed out session
+        public ActionResult GetLoginsList(bool forceRefresh = false)
+        {
+            if (forceRefresh ||  DB.Users.HasChanged)
+            {
+                List<User> onlineUsers = DB.Users.ToList().Where(u => u.Online).ToList();    
+                ViewBag.LoggedUsersId = onlineUsers.Select(u => u.Id).ToList();
+                List<Login> logins = DB.Logins.ToList().OrderByDescending(l => l.LoginDate).ToList();
+                return PartialView(logins);
+            }
+            return null;
+        }
+        [AdminAccess]
+        public ActionResult DeleteJournalDay(string day)
+        {
+            try
+            {
+                DateTime date = DateTime.Parse(day);
+                DB.Logins.DeleteLoginsJournalDay(date);
+            }
+            catch (Exception) { }
+            return RedirectToAction("LoginsJournal");
+        }
+        #endregion
     }
 }

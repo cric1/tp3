@@ -139,3 +139,177 @@
         @caption
     </button>
 }
+
+@helper CountryFlag(string countryCode)
+{
+    var country = JsonDemo.WebServices.Countries.Get(countryCode);
+    if (country != null)
+    {
+        <img src="@country.Flag" title="@country.Name" style="width:40px;" />
+    }
+}
+@helper avatarLink(string avatar, string linkUrl)
+{
+    <a href="@linkUrl" data-toggle="tooltip" title="Modifier le profil....">
+        <div class="UserSmallAvatar"
+             style="background: url(@avatar)"></div>
+    </a>
+}
+@helper AvatarUser(JsonDemo.Models.User user, string avatarClass = "UserMediumAvatar")
+{
+    var avatarUrl = user.Avatar;
+    <div class="userItem">
+        <div class="@avatarClass" style="background: url(@user.Avatar)"></div>
+        <div class="ellipsis">@user.Name</div>
+    </div>
+}
+@helper UsersCheckList(IEnumerable<JsonDemo.Models.User> users, List<int> selectedUsers, string usersCheckListName = "UsersCheckList")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+
+    <div class="usersCheckList">
+        @foreach (var user in users)
+        {
+            string chekBoxId = usersCheckListName + "_" + user.Id.ToString();
+            if (selectedUsers.Contains(user.Id))
+            {
+                <input type="checkbox" name="@usersCheckListName" id="@chekBoxId" value="@user.Id" checked />
+            }
+            else
+            {
+                <input type="checkbox" name="@usersCheckListName" id="@chekBoxId" value="@user.Id" />
+            }
+            <label for="@chekBoxId">
+                @Helper.AvatarUser(user, "UserSmallAvatar")
+            </label>
+        }
+    </div>
+}
+@helper OnLineStatusIcon(bool onLine, bool blocked = false)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var icon = (onLine ? "/Content/UI-icons/OnLine.png" : "/Content/UI-icons/OffLine.png");
+    if (blocked)
+    {
+        icon = (onLine ? "/Content/UI-icons/OnLine.png" : "/Content/UI-icons/Masked.png");
+    }
+    var iconUrl = Url.Content(icon);
+    <img src="@iconUrl" class="small_icon" />
+}
+@helper TimeOutIcon()
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var iconUrl = Url.Content("~/Content/UI-icons/timeout.png");
+    <img src="@iconUrl" class="small_icon" title="Session expirée" />
+}
+@helper Checked(bool checkStatus)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    if (checkStatus)
+    {
+        <img src="@Url.Content("~/Content/UI-icons/Accept.png")" class="small_icon" />
+    }
+    else
+    {
+        <div><img src="@Url.Content("~/Content/UI-icons/Abort.png")" class="small_icon" /></div>
+    }
+}
+@helper UserTypeIcon(int genderId)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var icon = "";
+    var tooltip = "";
+    switch (genderId)
+    {
+        case 1: icon = "~/Content/UI-icons/admin.png"; tooltip = "Administrateur"; break;
+        case 2: icon = "~/Content/UI-icons/power user.png"; tooltip = "Usager prévilégié"; break;
+        default: icon = "~/Content/UI-icons/user.png"; tooltip = "Usager standard"; break;
+    }
+    var iconUrl = Url.Content(icon);
+    <img src="@iconUrl" class="UserSmallAvatar" title="@tooltip" />
+}
+@helper ParseContent(string content)
+{
+    string[] tokens = content.Split(' ');
+    foreach (var token in tokens)
+    {
+        var t = token.ToLower();
+
+        if (t.Contains("http://") || t.Contains("https://"))
+        {
+            t = t.Replace("http://", "https://");
+            if (t.Contains(".webp"))
+            {
+                var image = token.Replace(".webp", "");
+                var webp = image + ".webp";
+                var png = image + ".png";
+                var jpg = image + ".jpg";
+                <br />
+                <picture class="contentImage">
+                    <source type="image/webp" srcset="@webp">
+                    <source type="image/png" srcset="@png">
+                    <img src="@jpg" style="width: auto;">
+                </picture>
+                <br />
+            }
+            else
+            {
+                if (t.Contains(".jpg") || t.Contains(".jpeg") || t.Contains(".png") || t.Contains(".bmp"))
+                {
+                    <br />
+                    <a href="@token" target="_blank">
+                        <img class="contentImage" src="@token" alt="" />
+                    </a>
+                    <br />
+                }
+                else
+                {
+                    if (token.Contains("https://www.youtube.com/watch?v="))
+                    {
+                        string youtubeId = token.Replace("https://www.youtube.com/watch?v=", "");
+                        if (youtubeId.IndexOf("&") > -1)
+                        {
+                            youtubeId = youtubeId.Substring(0, youtubeId.IndexOf("&"));
+                        }
+                        string youtubeThumbnail = "https://i3.ytimg.com/vi/" + youtubeId + "/maxresdefault.jpg";
+                        <br />
+                        <a href="@token" target="_blank">
+                            <img class="contentImage" src="@youtubeThumbnail" alt="" />
+                        </a>
+                        <br />
+                    }
+                    else
+                    {
+                        string[] tt = token.Split('/');
+                        string sublink = token;
+                        if (tt.Length > 2)
+                        {
+                            sublink = tt[0] + @"//" + tt[2] + "...";
+                        }
+                        <a href="@token" target="_blank" class="ellipsis" title="@token">@sublink</a>
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (t.Contains("[hr]"))
+            {
+                <hr />
+            }
+            else
+            {
+                string subtoken = token;
+                if (token.Length > 28)
+                {
+                    subtoken = token.Substring(0, 28) + "...";
+                    <span class="token" title="@token">@subtoken</span>
+                }
+                else
+                {
+                    <span class="token">@subtoken</span>
+                }
+            }
+        }
+    }
+}

@@ -65,7 +65,7 @@ namespace JsonDemo.Models
 
             Body += @"<br/><br/>Ce courriel a été généré automatiquement, veuillez ne pas y répondre.";
             Body += @"<br/><br/>Si vous éprouvez des difficultés ou s'il s'agit d'une erreur, veuillez le signaler à <a href='mailto:"
-                 + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site ChatManager)";
+                 + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site Registre)";
 
             SMTP.SendEmail(user.Name, user.Email, Subject, Body);
         }
@@ -89,7 +89,7 @@ namespace JsonDemo.Models
 
             Body += @"<br/><br/>Ce courriel a été généré automatiquement, veuillez ne pas y répondre.";
             Body += @"<br/><br/>Si vous éprouvez des difficultés ou s'il s'agit d'une erreur, veuillez le signaler à <a href='mailto:"
-                 + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site ChatManager)";
+                 + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site Registre)";
 
             SMTP.SendEmail(user.Name, unverifiedEmail.Email, Subject, Body);
         }
@@ -115,7 +115,7 @@ namespace JsonDemo.Models
 
                 Body += @"<br/><br/>Ce courriel a été généré automatiquement, veuillez ne pas y répondre.";
                 Body += @"<br/><br/>Si vous éprouvez des difficultés ou s'il s'agit d'une erreur, veuillez le signaler à <a href='mailto:"
-                     + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site ChatManager)";
+                     + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site Registre)";
 
                 SMTP.SendEmail(user.Name, email, Subject, Body);
             }
@@ -132,7 +132,7 @@ namespace JsonDemo.Models
 
             Body += @"<br/><br/>Ce courriel a été généré automatiquement, veuillez ne pas y répondre.";
             Body += @"<br/><br/>Si vous éprouvez des difficultés ou s'il s'agit d'une erreur, veuillez le signaler à <a href='mailto:"
-                 + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site ChatManager)";
+                 + SMTP.OwnerEmail + "'>" + SMTP.OwnerName + "</a> (Webmestre du site Registre)";
 
             SMTP.SendEmail(user.Name, user.Email, Subject, Body);
         }

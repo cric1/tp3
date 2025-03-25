@@ -111,6 +111,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\LoginsRepository.cs" />
+    <Compile Include="WebServices\Countries.cs" />
+    <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Students\no_avatar.png" />
     <Content Include="App_Assets\Teachers\bc2be815-cd3d-459d-a312-49e60229c80c.jpeg" />
     <Content Include="App_Assets\Teachers\c00b3008-a41a-4586-a338-1a589256b1bd.jpeg" />
@@ -125,6 +129,7 @@
     <Content Include="App_Assets\Users\9f51e02d-4089-4d33-aa3e-62cb925ff185.jpeg" />
     <Content Include="App_Assets\Users\b92612bf-1e79-40df-81c8-9dcd31a129f7.jpeg" />
     <Content Include="App_Assets\Users\no_avatar.png" />
+    <Content Include="App_Data\iso-3166.txt" />
     <Content Include="Content\Accounts.css" />
     <Content Include="Content\Courses.css" />
     <Compile Include="Controllers\AccessControl.cs" />
@@ -263,6 +268,8 @@
     <Content Include="Views\Courses\GetCourses.cshtml" />
     <Content Include="Views\Courses\GetCourse.cshtml" />
     <Content Include="Views\Courses\GetRegistrations.cshtml" />
+    <Content Include="Views\Accounts\LoginsJournal.cshtml" />
+    <Content Include="Views\Accounts\GetLoginsList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

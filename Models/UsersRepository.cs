@@ -49,12 +49,41 @@ namespace JsonDemo.Models
             return null;
         }
 
-        public void SetOnline(Object user, bool online)
+        public void SetOnline(Object userObj, bool online)
         {
+            User user = (User)userObj;
             if (user!= null)
             {
-                ((User)user).Online = online;
-                Update((User)user);
+                user.Online = online;
+                Update(user);
+
+                if (online)
+                    HttpContext.Current.Session["CurrentLoginId"] = DB.Logins.Add(user.Id).Id;
+                else
+                    DB.Logins.UpdateLogout((int)HttpContext.Current.Session["CurrentLoginId"]);
+            }
+        }
+        public void ResetAllUsersOnlineStatus()
+        {
+            List<User> users = new List<User>();
+
+            foreach (User user in DB.Users.ToList())
+            {
+                users.Add(user.Copy());
+            }
+            // Make shure there are no user still online
+            BeginTransaction();
+            try
+            {
+                for (var i = 0; i < users.Count; i++)
+                {
+                    users[i].Online = false;
+                    Update(users[i]);
+                }
+            }
+            finally 
+            { 
+                EndTransaction(); 
             }
         }
         public void SetVerified(Object user, bool Verified)
