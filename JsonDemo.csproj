@@ -198,6 +198,7 @@
     <Content Include="App_Data\Users.json" />
     <Content Include="App_Data\UnverifiedEmails.json" />
     <Content Include="App_Data\RenewPasswordCommands.json" />
+    <Content Include="App_Data\Logins.json" />
     <None Include="Properties\PublishProfiles\Registar2025 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Registre-NC-2025 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
