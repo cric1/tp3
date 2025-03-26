@@ -159,9 +159,7 @@ namespace JsonDemo.Models
                 if (userToDelete != null)
                 {
                     BeginTransaction();
-                    /*
-                     * Deletion of data related to user
-                     */
+                    userToDelete.DeleteLogins();
                     base.Delete(userId);
                     EndTransaction();
                     return true;

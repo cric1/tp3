@@ -69,6 +69,17 @@ namespace JsonDemo.Models
         public bool IsBlocked { get { return Blocked; } }
         [JsonIgnore]
         public bool IsOnline { get { return Online; } }
-        #endregion    
+        #endregion
+
+        [JsonIgnore]
+        public List<Login> Logins { get { return DB.Logins.ToList().Where(l => l.UserId == Id).ToList(); } }
+
+        public void DeleteLogins()
+        {
+            foreach(Login login in Logins)
+            {
+                DB.Logins.Delete(login.Id);
+            }
+        }
     }
 }
