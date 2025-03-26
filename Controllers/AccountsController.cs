@@ -64,7 +64,7 @@ namespace JsonDemo.Controllers
             {
                 Session["LoginSuccess"] = false;
                 Session["LoginMessage"] = "Courriel ou mot de passe incorrect";
-                return View();
+                return View(credential);
             }
             else
             {
@@ -142,6 +142,17 @@ namespace JsonDemo.Controllers
                 return View(passwordView);
             }
             return Redirect("/Accounts/Login?message=Commande de changement de mot de passe introuvable!&success=false");
+
+        }
+        public ActionResult RenewPasswordCancelled(string code)
+        {
+            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == code).First();
+            if (command != null)
+            {
+                RenewPasswordView passwordView = new RenewPasswordView();
+                return View(passwordView);
+            }
+            return Redirect("/Accounts/Login?message=Commande de changement de mot de passe annulée!&success=false");
 
         }
         [HttpPost]
@@ -328,9 +339,9 @@ namespace JsonDemo.Controllers
         [AdminAccess] // RefreshTimout = false otherwise periodical refresh with lead to never timed out session
         public ActionResult GetLoginsList(bool forceRefresh = false)
         {
-            if (forceRefresh ||  DB.Users.HasChanged)
+            if (forceRefresh || DB.Users.HasChanged)
             {
-                List<User> onlineUsers = DB.Users.ToList().Where(u => u.Online).ToList();    
+                List<User> onlineUsers = DB.Users.ToList().Where(u => u.Online).ToList();
                 ViewBag.LoggedUsersId = onlineUsers.Select(u => u.Id).ToList();
                 List<Login> logins = DB.Logins.ToList().OrderByDescending(l => l.LoginDate).ToList();
                 return PartialView(logins);

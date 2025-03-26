@@ -67,9 +67,9 @@ namespace JsonDemo.Controllers
                         return true;
                     }
                 }
-                catch (Exception ex) 
-                { 
-                    return false; 
+                catch (Exception ex)
+                {
+                    return false;
                 }
             }
         }

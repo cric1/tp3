@@ -52,14 +52,16 @@ namespace JsonDemo.Models
         public void SetOnline(Object userObj, bool online)
         {
             User user = (User)userObj;
-            if (user!= null)
+            if (user != null)
             {
+                user = DB.Users.Get(user.Id);
                 user.Online = online;
                 Update(user);
 
                 if (online)
                     HttpContext.Current.Session["CurrentLoginId"] = DB.Logins.Add(user.Id).Id;
                 else
+                    if (HttpContext.Current != null)
                     DB.Logins.UpdateLogout((int)HttpContext.Current.Session["CurrentLoginId"]);
             }
         }
@@ -81,9 +83,9 @@ namespace JsonDemo.Models
                     Update(users[i]);
                 }
             }
-            finally 
-            { 
-                EndTransaction(); 
+            finally
+            {
+                EndTransaction();
             }
         }
         public void SetVerified(Object user, bool Verified)
@@ -94,14 +96,7 @@ namespace JsonDemo.Models
                 Update((User)user);
             }
         }
-        public void SetBlocked(Object user, bool Blocked)
-        {
-            if (user != null)
-            {
-                ((User)user).Blocked = Blocked;
-                Update((User)user);
-            }
-        }
+
         public void SetAdmin(Object user, bool Admin)
         {
             if (user != null)
@@ -128,15 +123,7 @@ namespace JsonDemo.Models
                 Update((User)user);
             }
         }
-        public void SetBlocked(int userId, bool Blocked)
-        {
-            User user = Get(userId);
-            if (user != null)
-            {
-                ((User)user).Blocked = Blocked;
-                Update((User)user);
-            }
-        }
+
         public void SetAdmin(int userId, bool Admin)
         {
             User user = Get(userId);

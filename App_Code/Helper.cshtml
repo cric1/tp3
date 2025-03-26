@@ -139,7 +139,6 @@
         @caption
     </button>
 }
-
 @helper CountryFlag(string countryCode)
 {
     var country = JsonDemo.WebServices.Countries.Get(countryCode);
@@ -188,10 +187,10 @@
 @helper OnLineStatusIcon(bool onLine, bool blocked = false)
 {
     var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    var icon = (onLine ? "/Content/UI-icons/OnLine.png" : "/Content/UI-icons/OffLine.png");
+    var icon = (onLine ? "/Content/UI-Images/OnLine.png" : "/Content/UI-Images/OffLine.png");
     if (blocked)
     {
-        icon = (onLine ? "/Content/UI-icons/OnLine.png" : "/Content/UI-icons/Masked.png");
+        icon = (onLine ? "/Content/UI-Images/OnLine.png" : "/Content/UI-Images/Masked.png");
     }
     var iconUrl = Url.Content(icon);
     <img src="@iconUrl" class="small_icon" />
@@ -199,7 +198,7 @@
 @helper TimeOutIcon()
 {
     var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
-    var iconUrl = Url.Content("~/Content/UI-icons/timeout.png");
+    var iconUrl = Url.Content("~/Content/UI-Images/timeout.png");
     <img src="@iconUrl" class="small_icon" title="Session expirée" />
 }
 @helper Checked(bool checkStatus)
@@ -207,11 +206,11 @@
     var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
     if (checkStatus)
     {
-        <img src="@Url.Content("~/Content/UI-icons/Accept.png")" class="small_icon" />
+        <img src="@Url.Content("~/Content/UI-Images/Accept.png")" class="small_icon" />
     }
     else
     {
-        <div><img src="@Url.Content("~/Content/UI-icons/Abort.png")" class="small_icon" /></div>
+        <div><img src="@Url.Content("~/Content/UI-Images/Abort.png")" class="small_icon" /></div>
     }
 }
 @helper UserTypeIcon(int genderId)
@@ -221,9 +220,9 @@
     var tooltip = "";
     switch (genderId)
     {
-        case 1: icon = "~/Content/UI-icons/admin.png"; tooltip = "Administrateur"; break;
-        case 2: icon = "~/Content/UI-icons/power user.png"; tooltip = "Usager prévilégié"; break;
-        default: icon = "~/Content/UI-icons/user.png"; tooltip = "Usager standard"; break;
+        case 1: icon = "~/Content/UI-Images/admin.png"; tooltip = "Administrateur"; break;
+        case 2: icon = "~/Content/UI-Images/power user.png"; tooltip = "Usager prévilégié"; break;
+        default: icon = "~/Content/UI-Images/user.png"; tooltip = "Usager standard"; break;
     }
     var iconUrl = Url.Content(icon);
     <img src="@iconUrl" class="UserSmallAvatar" title="@tooltip" />
