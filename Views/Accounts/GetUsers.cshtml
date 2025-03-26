@@ -14,7 +14,7 @@
         <div class="UserPanel" style="display:grid;grid-template-columns:180px 30px 50px 30px auto;align-items:center;margin:8px;font-size:14px;">
             <div style="display:flex; align-items:center; gap:8px;">
                 @Helper.Image(item.Avatar, "smallAvatar")
-                <span>@item.Name</span>
+                <span title="@item.Email">@item.Name</span>
             </div>
             <div class="blockCmd" style="text-align:center" userId="@item.Id" title="@(item.Blocked ? "Débloquer " : "Bloquer") le compte de l'usager @item.Name">
                 @Helper.Image(@statusIcon, "xsmallAvatar")

@@ -345,7 +345,7 @@ fieldset {
 
 .loginJournalLayout {
     display: grid;
-    grid-template-columns: 225px 40px 8px 55px auto auto;
+    grid-template-columns: 215px 72px 8px 75px 60px auto;
     align-items: center;
     height: 50px;
 }
