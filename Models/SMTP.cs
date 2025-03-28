@@ -42,7 +42,7 @@ namespace JsonDemo.Models
             mail.To.Clear();
             mail.To.Add(new MailAddress(toEmail, toName, System.Text.Encoding.UTF8));
             mail.Subject = subject;
-            mail.Body = "<pre>" + body + @"</pre>";
+            mail.Body = body ;
             try
             {
                 client.Send(mail);

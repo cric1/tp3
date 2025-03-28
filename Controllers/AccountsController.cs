@@ -129,13 +129,13 @@ namespace JsonDemo.Controllers
             if (ModelState.IsValid)
             {
                 AccountsEmailing.SendEmailRenewPasswordCommand(Url.Action("RenewPassword", "Accounts", null, Request.Url.Scheme), Email);
-                return Redirect("/Accounts/Login?message=Un courriel de commande de changement de mot de passe vous a été envoyé.");
+                return Redirect("/Accounts/Login?message=Un courriel de commande de changement de mot de passe vous a été envoyé si l'adresse fournie est valide.");
             }
             return View(Email);
         }
         public ActionResult RenewPassword(string code)
         {
-            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == code).First();
+            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == code).FirstOrDefault();
             if (command != null)
             {
                 RenewPasswordView passwordView = new RenewPasswordView();
@@ -146,12 +146,6 @@ namespace JsonDemo.Controllers
         }
         public ActionResult RenewPasswordCancelled(string code)
         {
-            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == code).First();
-            if (command != null)
-            {
-                RenewPasswordView passwordView = new RenewPasswordView();
-                return View(passwordView);
-            }
             return Redirect("/Accounts/Login?message=Commande de changement de mot de passe annulée!&success=false");
 
         }
@@ -159,8 +153,8 @@ namespace JsonDemo.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult RenewPassword(RenewPasswordView passwordView)
         {
-            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == passwordView.Code).First();
-            if (ModelState.IsValid)
+            RenewPasswordCommand command = DB.RenewPasswordCommands.ToList().Where(r => r.VerificationCode == passwordView.Code).FirstOrDefault();
+            if (command != null && ModelState.IsValid)
             {
                 User user = DB.Users.Get(command.UserId);
                 DB.RenewPasswordCommands.Delete(command.Id);

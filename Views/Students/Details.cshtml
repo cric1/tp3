@@ -10,7 +10,7 @@
     <script>
         $(() => {
             let StudentPanel = new AutoRefreshedPanel("studentPanel", "@Url.Action("GetStudent")", 5 /*seconds*/);
-            let RegistrationsPanel = new AutoRefreshedPanel("registrationsPanel", "@Url.Action("GetRegistrations")", 5 /*seconds*/);
+            let RegistrationsPanel = new AutoRefreshedPanel("registrationsPanel", "@Url.Action("GetRegistrations")", 5 /*seconds*/, SummaryHandling);
         })
     </script>
 }

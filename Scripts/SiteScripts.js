@@ -34,9 +34,14 @@
         });
 
     })
+    SummaryHandling();
+})
+
+
+function SummaryHandling() {
 
     $('summary').attr('title', 'Utilisez ctrl-clic pour développer/réduire');
-
+    $('summary').off();
     // Toggle collapse uncollapse details
     $('summary').on('click', function (e) {
         if (e.ctrlKey) {
@@ -50,12 +55,11 @@
             }
         }
     })
+}
 
-    $(".submitCmd").click(function () {
-        $("form").submit();
-    })
+$(".submitCmd").click(function () {
+    $("form").submit();
 })
-
 function InstallAutoComplete(targetId, words) {
 
     function split(val) {

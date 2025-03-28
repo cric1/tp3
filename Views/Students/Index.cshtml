@@ -7,7 +7,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(() => {
-            let StudentsPanel = new AutoRefreshedPanel("StudentsPanel", "@Url.Action("GetStudents")", 5 /*seconds*/);
+            let StudentsPanel = new AutoRefreshedPanel("StudentsPanel", "@Url.Action("GetStudents")", 5 /*seconds*/, SummaryHandling);
 
             var timeout = null;
             $('#searchToken').keyup(function () {

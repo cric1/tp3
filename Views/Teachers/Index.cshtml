@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(() => {
-            let TeachersPanel = new AutoRefreshedPanel("TeachersPanel", "@Url.Action("GetTeachers")", 2 /*seconds*/);
+            let TeachersPanel = new AutoRefreshedPanel("TeachersPanel", "@Url.Action("GetTeachers")", 2 /*seconds*/, SummaryHandling);
             var delayKeyup = null;
             $('#searchToken').keyup(function () {
                 clearTimeout(delayKeyup);

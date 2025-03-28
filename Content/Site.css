@@ -350,6 +350,16 @@ fieldset {
     height: 50px;
 }
 
+@media screen and (max-width: 750px ) {
+    .loginJournalLayout {
+        grid-template-columns: 215px 45px 12px 45px 60px 0px;
+    }
+
+    .extraJournalInfo {
+        display: none;
+    }
+}
+
 .userItem {
     display: flex;
     column-gap: 8px;

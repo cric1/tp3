@@ -57,6 +57,7 @@ namespace JsonDemo.Models
                 user = DB.Users.Get(user.Id);
                 user.Online = online;
                 Update(user);
+                ((User)userObj).Online = online;
 
                 if (online)
                     HttpContext.Current.Session["CurrentLoginId"] = DB.Logins.Add(user.Id).Id;

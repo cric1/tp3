@@ -108,7 +108,7 @@ namespace JsonDemo.Models
 
                 string Body = "Bonjour " + user.Name + @",<br/><br/>";
 
-                Body += @"Vous demandé de renouveller votre mot de passe. <br/>";
+                Body += @"Vous avez demandé de renouveller votre mot de passe. <br/>";
                 Body += @"Pour procéder, vous devez cliquer sur le lien suivant : <br/>";
 
                 Body += Link;
