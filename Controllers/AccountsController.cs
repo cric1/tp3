@@ -3,6 +3,7 @@ using JsonDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using static JsonDemo.Controllers.AccessControl;
@@ -110,6 +111,7 @@ namespace JsonDemo.Controllers
                 if (newlySubscribedUser != null)
                 {
                     newlySubscribedUser.Verified = true;
+                    Session["CurrentLoginEmail"] = newlySubscribedUser.Email;
                     DB.Users.Update(newlySubscribedUser);
                     AccountsEmailing.SendEmailUserStatusChanged("Votre adresse de courriel a été confirmée.", newlySubscribedUser);
                     return Redirect("/Accounts/Login?message=Votre adresse de courriel a été vérifiée avec succès!");
@@ -179,6 +181,7 @@ namespace JsonDemo.Controllers
                 {
                     user.Verified = true;
                     user.Email = UnverifiedEmail.Email;
+                    Session["CurrentLoginEmail"] = UnverifiedEmail.Email;
                     DB.UnverifiedEmails.Delete(UnverifiedEmail.Id);
                     DB.Users.Update(user);
                     AccountsEmailing.SendEmailUserStatusChanged("Votre changement d'adresse de courriel a été effectuée avec succès!", user);
