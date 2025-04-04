@@ -1,11 +1,12 @@
 ﻿using JsonDemo.Models;
+using PhotosManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JsonDemo.Controllers
+namespace PhotosManager.Controllers
 {
     public class AccessControl
     {
@@ -18,7 +19,6 @@ namespace JsonDemo.Controllers
                     User connectedUser = (User)HttpContext.Current.Session["ConnectedUser"];
                     if (connectedUser == null)
                     {
-                        httpContext.Response.Redirect("/Accounts/Login?message=Accès non autorisé!&success=false");
                         return false;
                     }
                     else
@@ -33,6 +33,7 @@ namespace JsonDemo.Controllers
                 }
                 catch (Exception ex)
                 {
+                    httpContext.Response.Redirect("/Accounts/Login?message=Accès non autorisé!&success=false");
                     return false;
                 }
             }
@@ -46,7 +47,6 @@ namespace JsonDemo.Controllers
                     User connectedUser = (User)HttpContext.Current.Session["ConnectedUser"];
                     if (connectedUser == null)
                     {
-                        httpContext.Response.Redirect("/Accounts/Login?message=Accès non autorisé!&success=false");
                         return false;
                     }
                     else
@@ -69,6 +69,7 @@ namespace JsonDemo.Controllers
                 }
                 catch (Exception ex)
                 {
+                    httpContext.Response.Redirect("/Accounts/Login?message=Accès non autorisé!&success=false");
                     return false;
                 }
             }
