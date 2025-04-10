@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JsonDemo</RootNamespace>
-    <AssemblyName>JsonDemo</AssemblyName>
+    <RootNamespace>PhotoManager</RootNamespace>
+    <AssemblyName>PhotoManager</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -111,19 +111,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginsRepository.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotosRepository.cs" />
     <Compile Include="WebServices\Countries.cs" />
     <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Loading_icon.gif" />
-    <Content Include="App_Assets\Students\no_avatar.png" />
-    <Content Include="App_Assets\Teachers\bc2be815-cd3d-459d-a312-49e60229c80c.jpeg" />
-    <Content Include="App_Assets\Teachers\c00b3008-a41a-4586-a338-1a589256b1bd.jpeg" />
-    <Content Include="App_Assets\Teachers\c7a24783-6cbd-4583-a094-a72f2ac2e389.jpeg" />
-    <Content Include="App_Assets\Teachers\f4e08e66-6485-4c73-b1f8-52edae4f497a.jpeg" />
-    <Content Include="App_Assets\Teachers\f9a42fd9-87e4-41d6-87c6-50fa3526db49.jpeg" />
-    <Content Include="App_Assets\Teachers\fbb51b24-2763-4d30-b175-6a78856ade4b.jpeg" />
-    <Content Include="App_Assets\Teachers\no_avatar.png" />
     <Content Include="App_Assets\Users\03ccc3a4-e11c-41d2-a678-cb47f9a1acd5.jpeg" />
     <Content Include="App_Assets\Users\174fe702-5d55-48a0-8dac-a5ea13918193.jpeg" />
     <Content Include="App_Assets\Users\79d885f4-f9c3-4cee-b27f-bd5f9f923c21.jpeg" />
@@ -144,33 +140,22 @@
     <Content Include="Content\Courses.css" />
     <Compile Include="Controllers\AccessControl.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
-    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StudentsController.cs" />
-    <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="DAL\AssetAttribute.cs" />
     <Compile Include="DAL\Record.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountsEmailing.cs" />
-    <Compile Include="Models\Allocation.cs" />
-    <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\CoursesRepository.cs" />
     <Compile Include="DAL\DB.cs" />
     <Compile Include="Models\DateExt.cs" />
     <Compile Include="Models\EmailView.cs" />
     <Compile Include="Models\LoginCredential.cs" />
     <Compile Include="Models\NextSession.cs" />
-    <Compile Include="Models\Registration.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="Models\RenewPasswordView.cs" />
     <Compile Include="Models\SelectListUtilities.cs" />
     <Compile Include="Models\SMTP.cs" />
-    <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\StudentsRepository.cs" />
-    <Compile Include="Models\Teacher.cs" />
-    <Compile Include="Models\TeachersRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,46 +217,24 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Students\Index.cshtml" />
-    <Content Include="Views\Students\Details.cshtml" />
-    <Content Include="Views\Students\Create.cshtml" />
-    <Content Include="Views\Students\Edit.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Edit.cshtml" />
-    <Content Include="Views\Students\StudentForm.cshtml" />
-    <Content Include="Views\Courses\CourseForm.cshtml" />
     <Content Include="Views\Shared\_header.cshtml" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Views\Shared\_search.cshtml" />
-    <Content Include="Views\Teachers\Create.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
-    <Content Include="Views\Teachers\Edit.cshtml" />
-    <Content Include="Views\Teachers\Index.cshtml" />
-    <Content Include="Views\Teachers\TeacherForm.cshtml" />
-    <Content Include="Views\Students\SetYear.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Accounts\Subscribe.cshtml" />
     <Content Include="Views\Accounts\EditProfil.cshtml" />
     <Content Include="Views\Accounts\ProfilForm.cshtml" />
-    <Content Include="Views\Teachers\GetTeachers.cshtml" />
     <Content Include="Views\Accounts\UserAlert.cshtml" />
     <Content Include="Views\Accounts\GetUsers.cshtml" />
     <Content Include="Views\Accounts\ManageUsers.cshtml" />
     <Content Include="Views\Accounts\RenewPassword.cshtml" />
     <Content Include="Views\Accounts\RenewPasswordCommand.cshtml" />
-    <Content Include="Views\Students\GetStudent.cshtml" />
-    <Content Include="Views\Students\GetRegistrations.cshtml" />
-    <Content Include="Views\Students\GetStudents.cshtml" />
-    <Content Include="Views\Teachers\GetTeacher.cshtml" />
-    <Content Include="Views\Teachers\GetAllocations.cshtml" />
-    <Content Include="Views\Courses\GetCourses.cshtml" />
-    <Content Include="Views\Courses\GetCourse.cshtml" />
-    <Content Include="Views\Courses\GetRegistrations.cshtml" />
     <Content Include="Views\Accounts\LoginsJournal.cshtml" />
     <Content Include="Views\Accounts\GetLoginsList.cshtml" />
+    <Content Include="Views\Photos\Index.cshtml" />
+    <Content Include="Views\Photos\Create.cshtml" />
+    <Content Include="Views\Photos\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
