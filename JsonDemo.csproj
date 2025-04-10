@@ -116,14 +116,6 @@
     <Compile Include="WebServices\Countries.cs" />
     <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Loading_icon.gif" />
-    <Content Include="App_Assets\Students\no_avatar.png" />
-    <Content Include="App_Assets\Teachers\bc2be815-cd3d-459d-a312-49e60229c80c.jpeg" />
-    <Content Include="App_Assets\Teachers\c00b3008-a41a-4586-a338-1a589256b1bd.jpeg" />
-    <Content Include="App_Assets\Teachers\c7a24783-6cbd-4583-a094-a72f2ac2e389.jpeg" />
-    <Content Include="App_Assets\Teachers\f4e08e66-6485-4c73-b1f8-52edae4f497a.jpeg" />
-    <Content Include="App_Assets\Teachers\f9a42fd9-87e4-41d6-87c6-50fa3526db49.jpeg" />
-    <Content Include="App_Assets\Teachers\fbb51b24-2763-4d30-b175-6a78856ade4b.jpeg" />
-    <Content Include="App_Assets\Teachers\no_avatar.png" />
     <Content Include="App_Assets\Users\03ccc3a4-e11c-41d2-a678-cb47f9a1acd5.jpeg" />
     <Content Include="App_Assets\Users\174fe702-5d55-48a0-8dac-a5ea13918193.jpeg" />
     <Content Include="App_Assets\Users\79d885f4-f9c3-4cee-b27f-bd5f9f923c21.jpeg" />
@@ -144,10 +136,7 @@
     <Content Include="Content\Courses.css" />
     <Compile Include="Controllers\AccessControl.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
-    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StudentsController.cs" />
-    <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="DAL\AssetAttribute.cs" />
     <Compile Include="DAL\Record.cs" />
     <Compile Include="Global.asax.cs">
@@ -155,8 +144,6 @@
     </Compile>
     <Compile Include="Models\AccountsEmailing.cs" />
     <Compile Include="Models\Allocation.cs" />
-    <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\CoursesRepository.cs" />
     <Compile Include="DAL\DB.cs" />
     <Compile Include="Models\DateExt.cs" />
     <Compile Include="Models\EmailView.cs" />
@@ -167,10 +154,6 @@
     <Compile Include="Models\RenewPasswordView.cs" />
     <Compile Include="Models\SelectListUtilities.cs" />
     <Compile Include="Models\SMTP.cs" />
-    <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\StudentsRepository.cs" />
-    <Compile Include="Models\Teacher.cs" />
-    <Compile Include="Models\TeachersRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
