@@ -84,7 +84,7 @@ namespace JsonDemo.Controllers
                 }
                 DB.Users.SetOnline(Session["ConnectedUser"], true);
             }
-            return RedirectToAction("Index", "Students");
+            return RedirectToAction("Index", "Photos");
         }
         public ActionResult Subscribe()
         {
