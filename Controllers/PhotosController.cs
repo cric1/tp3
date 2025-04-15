@@ -38,6 +38,7 @@ namespace PhotoManager.Controllers
         {
             try
             {
+                photo.Date = DateTime.Now;
                 DB.Photos.Add(photo);
                 return RedirectToAction("Index");
             }
