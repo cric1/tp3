@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using PhotoManager.Models;
 using PhotosManager.Models;
+using static PhotosManager.Controllers.AccessControl;
 
 namespace PhotoManager.Controllers
 {
+    [UserAccess]
     public class PhotosController : Controller
     {
         // GET: Photos
@@ -20,7 +22,8 @@ namespace PhotoManager.Controllers
         // GET: Photos/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            PhotoManager.Models.Photo photo = DB.Photos.Get(id);
+            return View(photo);
         }
 
         // GET: Photos/Create
@@ -31,12 +34,12 @@ namespace PhotoManager.Controllers
 
         // POST: Photos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Photo photo)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                photo.Date = DateTime.Now;
+                DB.Photos.Add(photo);
                 return RedirectToAction("Index");
             }
             catch
