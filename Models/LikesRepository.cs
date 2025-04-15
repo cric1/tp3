@@ -6,9 +6,7 @@ using System.Web;
 
 namespace PhotoManager.Models
 {
-    public class Like : Record
+    public class LikesRepository : Repository<Like>
     {
-        public int UserId { get; set; }
-        public int PhotoId { get; set; }
     }
 }

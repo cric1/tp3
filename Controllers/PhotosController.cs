@@ -15,7 +15,8 @@ namespace PhotoManager.Controllers
         // GET: Photos
         public ActionResult Index()
         {
-            return View();
+            var photos = DB.Photos.ToList();
+            return View(photos);
         }
 
         // GET: Photos/Details/5

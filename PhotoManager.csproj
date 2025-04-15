@@ -113,6 +113,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\LikesRepository.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginsRepository.cs" />
     <Compile Include="Models\Photo.cs" />
@@ -120,16 +121,15 @@
     <Compile Include="WebServices\Countries.cs" />
     <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Loading_icon.gif" />
+    <Content Include="App_Assets\Photos\no_avatar.png" />
     <Content Include="App_Assets\Users\03ccc3a4-e11c-41d2-a678-cb47f9a1acd5.jpeg" />
     <Content Include="App_Assets\Users\174fe702-5d55-48a0-8dac-a5ea13918193.jpeg" />
     <Content Include="App_Assets\Users\79d885f4-f9c3-4cee-b27f-bd5f9f923c21.jpeg" />
     <Content Include="App_Assets\Users\9f51e02d-4089-4d33-aa3e-62cb925ff185.jpeg" />
     <Content Include="App_Assets\Users\b92612bf-1e79-40df-81c8-9dcd31a129f7.jpeg" />
     <Content Include="App_Assets\Users\no_avatar.png" />
-    <Content Include="App_Data\Allocations.json" />
     <Content Include="App_Data\iso-3166.txt" />
     <Content Include="App_Data\Logins.json" />
-    <Content Include="App_Data\Registrations.json" />
     <Content Include="App_Data\RenewPasswordCommands.json" />
     <Content Include="App_Data\UnverifiedEmails.json" />
     <Content Include="App_Data\Users.json" />
@@ -148,7 +148,6 @@
     <Compile Include="Models\DateExt.cs" />
     <Compile Include="Models\EmailView.cs" />
     <Compile Include="Models\LoginCredential.cs" />
-    <Compile Include="Models\NextSession.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="Models\RenewPasswordView.cs" />
     <Compile Include="Models\SelectListUtilities.cs" />
@@ -182,6 +181,7 @@
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="App_Code\Helper.cshtml" />
+    <Content Include="App_Data\Photos.json" />
     <None Include="Properties\PublishProfiles\Registar2025 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Registre-NC-2025 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
