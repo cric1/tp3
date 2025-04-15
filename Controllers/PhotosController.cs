@@ -39,6 +39,8 @@ namespace PhotoManager.Controllers
             try
             {
                 photo.Date = DateTime.Now;
+                var connectedUser = (User)Session["ConnectedUser"];
+                photo.OwnerId = connectedUser.Id;
                 DB.Photos.Add(photo);
                 return RedirectToAction("Index");
             }
