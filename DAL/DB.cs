@@ -1,5 +1,4 @@
 ﻿using JSON_DAL;
-using JsonDemo.Models;
 using PhotoManager.Models;
 using System;
 

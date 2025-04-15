@@ -11,8 +11,9 @@ namespace PhotoManager.Models
 {
     public class Photo : Record
     {
-        const string Avatars_Folder = @"/App_Assets/Photos/";
-        const string Default_Avatar = @"no_image.png";
+        const string Photos_Folder = @"/App_Assets/Photos/";
+        const string Default_Photo = @"no_photo.png";
+        public static string DefaultImage { get { return Photos_Folder + Default_Photo; } }
 
         [Display(Name = "Titre"), Required(ErrorMessage = "Obligatoire")]
         public string Title { get; set; }
@@ -20,8 +21,8 @@ namespace PhotoManager.Models
         public string Description { get; set; }
         public int OwnerId { get; set; }
 
-        [ImageAsset(Avatars_Folder, Default_Avatar)]
-        public string Path { get; set; }
+        [ImageAsset(Photos_Folder, Default_Photo)]
+        public string Path { get; set; } = DefaultImage;
         public DateTime Date { get; set; }
         public bool Shared { get; set; }
         [JsonIgnore]

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PhotoManager.Models;
+using PhotosManager.Models;
 
 namespace PhotoManager.Controllers
 {
@@ -11,7 +13,8 @@ namespace PhotoManager.Controllers
         // GET: Photos
         public ActionResult Index()
         {
-            return View();
+            var photos = DB.Photos.ToList();
+            return View(photos);
         }
 
         // GET: Photos/Details/5
