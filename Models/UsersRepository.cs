@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 
-namespace JsonDemo.Models
+namespace PhotosManager.Models
 {
     public class UsersRepository : Repository<User>
     {

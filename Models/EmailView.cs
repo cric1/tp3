@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JsonDemo.Models
+namespace PhotosManager.Models
 {
     public class EmailView
     {

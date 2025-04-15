@@ -2,7 +2,7 @@
 using PhotoManager.Models;
 using System;
 
-namespace JsonDemo.Models
+namespace PhotosManager.Models
 {
     public sealed class DB
     {

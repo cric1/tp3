@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JsonDemo.Controllers
+namespace PhotosManager.Controllers
 {
     public class HomeController : Controller
     {

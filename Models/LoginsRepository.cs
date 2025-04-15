@@ -1,11 +1,11 @@
 ﻿using JSON_DAL;
-using JsonDemo.WebServices;
+using PhotosManager.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace JsonDemo.Models
+namespace PhotosManager.Models
 {
     public class LoginsRepository : Repository<Login>
     {

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace JsonDemo.WebServices
+namespace PhotosManager.WebServices
 {
     public class GeoLocation
     {

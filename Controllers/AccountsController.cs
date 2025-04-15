@@ -1,14 +1,14 @@
 ﻿using JSON_DAL;
-using JsonDemo.Models;
+using PhotosManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using static JsonDemo.Controllers.AccessControl;
+using static PhotosManager.Controllers.AccessControl;
 
-namespace JsonDemo.Controllers
+namespace PhotosManager.Controllers
 {
     public class AccountsController : Controller
     {

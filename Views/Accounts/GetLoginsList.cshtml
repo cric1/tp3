@@ -1,9 +1,9 @@
-﻿@model IEnumerable<JsonDemo.Models.Login>
+﻿@model IEnumerable<PhotosManager.Models.Login>
 @{
 
     var loggedUsersId = (List<int>)ViewBag.LoggedUsersId;
     int count = Model.Count();
-    List<JsonDemo.Models.Login> logins = Model.ToList();
+    List<PhotosManager.Models.Login> logins = Model.ToList();
     int index = 0;
     bool first = true;
     while (index < count)

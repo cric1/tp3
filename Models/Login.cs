@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace JsonDemo.Models
+namespace PhotosManager.Models
 {
     public class Login
     {

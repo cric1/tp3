@@ -6,7 +6,7 @@
     bool showTeachersSearch = Session["ShowTeachersSearch"] != null ? (bool)Session["ShowTeachersSearch"] && controller == "teachers" : false;
     bool showSearch = (action == "index") && (showStudentsSearch || showCoursesSearch || showTeachersSearch);
     var yearsList = Session["StudentsYearsList"] != null ? ((List<int>)Session["StudentsYearsList"]).OrderByDescending(i => i) : null;
-    var selectedStudentYear = Session["SelectedStudentYear"] != null ? (int)Session["SelectedStudentYear"] : JsonDemo.Models.NextSession.CurrentDate.Year;
+    var selectedStudentYear = Session["SelectedStudentYear"] != null ? (int)Session["SelectedStudentYear"] : PhotosManager.Models.NextSession.CurrentDate.Year;
 }
 @if (showSearch)
 {

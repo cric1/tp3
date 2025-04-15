@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Web;
 
-namespace JsonDemo.Models
+namespace PhotosManager.Models
 {
     public class UnverifiedEmail : Record
     {
