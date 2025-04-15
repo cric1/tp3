@@ -1,4 +1,5 @@
 ﻿using JSON_DAL;
+using JsonDemo.Models;
 using PhotoManager.Models;
 using System;
 
@@ -31,6 +32,8 @@ namespace PhotosManager.Models
             = new Repository<RenewPasswordCommand>();
         static public PhotosRepository Photos { get; set; }
             = new PhotosRepository();
+        static public LikesRepository Likes { get; set; }
+            = new LikesRepository();
         #endregion
     }
 }

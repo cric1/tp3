@@ -254,7 +254,6 @@ summary {
 fieldset {
     margin-top: 10px;
     border: 1px solid #ccc;
-    max-width: 400px !important;
     border-radius: 6px;
     padding: 10px;
     padding-top: 10px;
