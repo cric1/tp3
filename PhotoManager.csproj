@@ -122,6 +122,7 @@
     <Compile Include="WebServices\GeoLocation.cs" />
     <Content Include="App_Assets\Loading_icon.gif" />
     <Content Include="App_Assets\Photos\no_avatar.png" />
+    <Content Include="App_Assets\Photos\no_photo.png" />
     <Content Include="App_Assets\Users\03ccc3a4-e11c-41d2-a678-cb47f9a1acd5.jpeg" />
     <Content Include="App_Assets\Users\174fe702-5d55-48a0-8dac-a5ea13918193.jpeg" />
     <Content Include="App_Assets\Users\79d885f4-f9c3-4cee-b27f-bd5f9f923c21.jpeg" />
@@ -169,6 +170,7 @@
     <Content Include="Content\UI-Images\Abort.png" />
     <Content Include="Content\UI-Images\Accept.png" />
     <Content Include="Content\UI-Images\admin.png" />
+    <Content Include="Content\UI-Images\Logo.png" />
     <Content Include="Content\UI-Images\Masked.png" />
     <Content Include="Content\UI-Images\OffLine.png" />
     <Content Include="Content\UI-Images\OnLine.png" />
@@ -182,6 +184,7 @@
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="App_Code\Helper.cshtml" />
     <Content Include="App_Data\Photos.json" />
+    <Content Include="App_Data\Likes.json" />
     <None Include="Properties\PublishProfiles\Registar2025 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Registre-NC-2025 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
