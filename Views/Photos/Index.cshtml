@@ -7,38 +7,49 @@
     <div class="row">
         @foreach (var photo in Model)
         {
-            int likesCount = photo.Likes.Count;
-            bool hasLiked = false;
-            string displayWhoLiked = "personne pour l'instant";
-            if (photo.Likes.Count != 0)
+            if (photo.Shared || connectedUserId == photo.OwnerId)
             {
-                hasLiked = photo.Likes.Any(p => p.UserId == connectedUserId);
-                foreach (var like in photo.Likes)
+
+
+                int likesCount = photo.Likes.Count;
+                bool hasLiked = false;
+                string displayWhoLiked = "personne pour l'instant";
+                if (photo.Likes.Count != 0)
                 {
-                    var userWhoLiked = DB.Users.ToList().FirstOrDefault(u => u.Id == like.UserId);
-                    displayWhoLiked += userWhoLiked.Name + '\n';
-                }
-            }
-            DateTime now = DateTime.Now;
-            string displayedDate = photo.Date.ToString();
-            if (now.Day == photo.Date.Day)
-            {
-                displayedDate = "il y a " + photo.Date.Hour + " heures";
-                if(now.Hour == photo.Date.Hour)
-                {
-                    displayedDate = "il y a " + photo.Date.Minute + " minutes";
-                    if(now.Minute == photo.Date.Minute)
+                    hasLiked = photo.Likes.Any(p => p.UserId == connectedUserId);
+                    foreach (var like in photo.Likes)
                     {
-                        displayedDate = "à l'instant";
+                        var userWhoLiked = DB.Users.ToList().FirstOrDefault(u => u.Id == like.UserId);
+                        displayWhoLiked += userWhoLiked.Name + '\n';
                     }
                 }
-            }
+                DateTime now = DateTime.Now;
+                TimeSpan diff = now - photo.Date;
+                string displayedDate;
+
+                if (diff.TotalMinutes < 1)
+                {
+                    displayedDate = "à l'instant";
+                }
+                else if (diff.TotalMinutes < 60)
+                {
+                    displayedDate = $"il y a {(int)diff.TotalMinutes} minutes";
+                }
+                else if (diff.TotalHours < 24 && now.Day == photo.Date.Day)
+                {
+                    displayedDate = $"il y a {(int)diff.TotalHours} heures";
+                }
+                else
+                {
+                    displayedDate = photo.Date.ToString(); // tu peux le formater selon le besoin
+                }
         <div class="col-12 col-sm-6 col-md-6 mb-4">
             <div class="h-100 text-primary">
                 <div class="card-body">
                     <div class="d-flex">
                         <img class="xsmallAvatar" src="@photo.Owner.Avatar" title="@photo.Owner.Name"/>
                         <h5 class="card-title" title="@photo.Description">@photo.Title</h5>
+                        <i class="@(photo.Shared && connectedUserId == photo.OwnerId ? "fa-solid fa-arrows-spin" : "") pt-2 fs-5"></i>
                     </div>
                     <a href="/Photos/details" title="Aller aux détails de la photo"><img class="img-fluid rounded mb-3" src="@photo.Path" alt="..." /></a>
                     <div class="d-flex justify-content-between align-items-center">
@@ -60,6 +71,7 @@
         </div>
 
     </div>
-                }
+            }
+        }
     </div>
 </div>
