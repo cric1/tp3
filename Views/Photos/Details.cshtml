@@ -1,51 +1,65 @@
 ﻿@model PhotoManager.Models.Photo
 
 @{
-    ViewBag.Title = "Details";
+        ViewBag.Title = "Details";
+        DateTime now = DateTime.Now;
+        TimeSpan diff = now - Model.Date;
+        string displayedDate;
+
+        if (diff.TotalMinutes < 1)
+        {
+            displayedDate = "à l'instant";
+        }
+        else if (diff.TotalMinutes < 60)
+        {
+            displayedDate = $"il y a {(int)diff.TotalMinutes} minutes";
+        }
+        else if (diff.TotalHours < 24 && now.Day == Model.Date.Day)
+        {
+            displayedDate = $"il y a {(int)diff.TotalHours} heures";
+        }
+        else
+        {
+            displayedDate = Model.Date.ToString(); // tu peux le formater selon le besoin
+        }
+    
 }
 
-<h2>Details</h2>
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header border-0 d-flex align-items-center">
+            <img src="@Url.Content(Model.Owner.Avatar ?? "~/Content/avatars/nico.jpg")"
+                 alt="@Model.Owner.Name ?? " Nico""
+                 class="rounded-circle me-2"
+                 style="width:32px; height:32px; object-fit:cover;" />
+            <strong>@Model.Owner.Name</strong>
+        </div>
+        <hr class="my-0" />
 
-<div>
-    <h4>Photo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+        <div class="card-body pt-3">
+            <h5 class="fw-bold mb-3">@Model.Title</h5>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <img src="@Url.Content(Model.Path)"
+                 class="img-fluid rounded mb-3"
+                 alt="@Model.Title" />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <div class="d-flex justify-content-between align-items-center text-secondary small mb-3">
+                <div>
+                    <div class="text-primary small">@displayedDate</div>
+                </div>
+                <div>
+                    <span>
+                        <i class="cmdIcon like-btn @(Model.Likes.Any(p => p.UserId == ((User)Session["ConnectedUser"]).Id) ? "fa-solid" : "fa-regular") fa-thumbs-up" data-id="@Model.Id" title="Like"></i>
+                        <span class="like-count">@Model.Likes.Count</span>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                    </span>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Path)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Path)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-
-    </dl>
+            <p class="card-text">
+                @Model.Description
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+}

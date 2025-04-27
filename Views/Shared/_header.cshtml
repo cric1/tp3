@@ -84,18 +84,38 @@
             </div>
             break;
         case "details":
-            <div class="actionTitle"> @dataModel - Détails </div>
-            <div class="menu-icon-layout">
-                @if (connected && connectedUser.IsAdmin)
+            
+                int id = 0;
+                bool canEditDelete = false;
+
+                var idObj = ViewContext.RouteData.Values["id"];
+                if (idObj != null && int.TryParse(idObj.ToString(), out id))
                 {
-                    <a href="/@controller/Edit" class="cmdIcon fa fa-edit" title="Modifier"></a>
+                    var photo = DB.Photos.Get(id);
+                    var currentUser = Session["ConnectedUser"] as User;
+
+                    canEditDelete = currentUser != null && (currentUser.IsAdmin || photo.OwnerId == currentUser.Id);
+                }
+            
+            <div class="actionTitle">@dataModel - Détails</div>
+            <div class="menu-icon-layout">
+                @if (canEditDelete)
+                {
+                    <a href="@Url.Action("Edit", controller, new { id = id })"
+                       class="cmdIcon fa fa-edit"
+                       title="Modifier"></a>
+
                     <i class="cmdIcon fa fa-trash"
                        title="Effacer"
-                       onclick="bootbox.confirm('Effacer?', function(result){ if (result) window.location = '/@controller/Delete'; })">
+                       onclick="bootbox.confirm('Effacer cette photo ?', function(ok){
+                   if (ok) window.location.href = '@Url.Action("Delete", controller, new { id = id })';
+               });">
                     </i>
-
                 }
-                <a href="/@controller/index" class="cmdIcon fa fa-times" title="Annuler"></a>
+
+                <a href="@Url.Action("Index", controller)"
+                   class="cmdIcon fa fa-times"
+                   title="Annuler"></a>
             </div>
             break;
         case "create":

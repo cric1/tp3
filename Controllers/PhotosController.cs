@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using PhotoManager.Models;
 using PhotosManager.Models;
 using static PhotosManager.Controllers.AccessControl;
@@ -22,7 +23,8 @@ namespace PhotoManager.Controllers
         // GET: Photos/Details/5
         public ActionResult Details(int id)
         {
-            PhotoManager.Models.Photo photo = DB.Photos.Get(id);
+            var photo = DB.Photos.Get(id);
+            if (photo == null) return HttpNotFound();
             return View(photo);
         }
 
@@ -36,62 +38,80 @@ namespace PhotoManager.Controllers
         [HttpPost]
         public ActionResult Create(Photo photo)
         {
-            try
-            {
-                photo.Date = DateTime.Now;
-                var connectedUser = (User)Session["ConnectedUser"];
-                photo.OwnerId = connectedUser.Id;
-                DB.Photos.Add(photo);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            if (!ModelState.IsValid)
+                return View(photo);
+
+            photo.Date = DateTime.Now;
+            photo.OwnerId = ((User)Session["ConnectedUser"]).Id;
+            DB.Photos.Add(photo);
+            return RedirectToAction("Index");
         }
 
         // GET: Photos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var photo = DB.Photos.Get(id);
+            if (photo == null)
+                return HttpNotFound();
+
+            var currentUser = (User)Session["ConnectedUser"];
+            if (photo.OwnerId != currentUser.Id && !currentUser.IsAdmin)
+                return new HttpStatusCodeResult(403);
+
+            return View(photo);
         }
 
         // POST: Photos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Photo edited)
         {
-            try
-            {
-                // TODO: Add update logic here
+            if (!ModelState.IsValid)
+                return View(edited);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var photo = DB.Photos.Get(id);
+            if (photo == null)
+                return HttpNotFound();
+
+            var currentUser = (User)Session["ConnectedUser"];
+            if (photo.OwnerId != currentUser.Id && !currentUser.IsAdmin)
+                return new HttpStatusCodeResult(403);
+
+            photo.Title = edited.Title;
+            photo.Description = edited.Description;
+            photo.Path = edited.Path;
+            photo.Shared = edited.Shared;
+            DB.Photos.Update(photo);
+
+            return RedirectToAction("Details", new { id });
         }
 
         // GET: Photos/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var photo = DB.Photos.Get(id);
+            if (photo == null)
+                return HttpNotFound();
+
+            var currentUser = (User)Session["ConnectedUser"];
+            if (photo.OwnerId != currentUser.Id && !currentUser.IsAdmin)
+                return new HttpStatusCodeResult(403);
+
+            DB.Photos.Delete(id);
+            return RedirectToAction("Index");
         }
 
-        // POST: Photos/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //jsp comment faire
+        //[HttpGet]
+        //public JsonResult HasLiked(int id)
+        //{
+        //    var user = Session["ConnectedUser"] as User;
+        //    if (user == null)
+        //        return Json(false, JsonRequestBehavior.AllowGet);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //    var photo = DB.Photos.Get(id);
+        //    bool hasLiked = photo.Likes.Any(l => l.UserId == user.Id);
+        //    return Json(hasLiked, JsonRequestBehavior.AllowGet);
+        //}
+
     }
 }
