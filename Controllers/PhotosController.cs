@@ -99,19 +99,32 @@ namespace PhotoManager.Controllers
             DB.Photos.Delete(id);
             return RedirectToAction("Index");
         }
+        // POST: Photos/Like/5
+       
+        [HttpPost]
+        public JsonResult Like(int id)
+        {
+            var user = (User)Session["ConnectedUser"];
+            var photo = DB.Photos.Get(id);
+            if (photo == null)
+                return Json(new { success = false, message = "Photo not found." });
 
-        //jsp comment faire
-        //[HttpGet]
-        //public JsonResult HasLiked(int id)
-        //{
-        //    var user = Session["ConnectedUser"] as User;
-        //    if (user == null)
-        //        return Json(false, JsonRequestBehavior.AllowGet);
+            var existing = DB.Likes.ToList().FirstOrDefault(l => l.PhotoId == id && l.UserId == user.Id);
 
-        //    var photo = DB.Photos.Get(id);
-        //    bool hasLiked = photo.Likes.Any(l => l.UserId == user.Id);
-        //    return Json(hasLiked, JsonRequestBehavior.AllowGet);
-        //}
+            if (existing == null)
+            {
+                DB.Likes.Add(new Like { PhotoId = id, UserId = user.Id });
+            }
+            else
+            {
+                DB.Likes.Delete(existing.Id);
+            }
+
+            var count = DB.Likes.ToList().Count(l => l.PhotoId == id);
+
+            return Json(new { success = true, count });
+        }
+
 
     }
 }

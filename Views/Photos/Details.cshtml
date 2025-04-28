@@ -1,28 +1,40 @@
 ﻿@model PhotoManager.Models.Photo
 
 @{
-        ViewBag.Title = "Details";
-        DateTime now = DateTime.Now;
-        TimeSpan diff = now - Model.Date;
-        string displayedDate;
+    ViewBag.Title = "Details";
+    DateTime now = DateTime.Now;
+    TimeSpan diff = now - Model.Date;
+    string displayedDate;
+    int connectedUserId = ((User)Session["ConnectedUser"]).Id;
+    Session["id"] = Model.Id;
 
-        if (diff.TotalMinutes < 1)
+    if (diff.TotalMinutes < 1)
+    {
+        displayedDate = "à l'instant";
+    }
+    else if (diff.TotalMinutes < 60)
+    {
+        displayedDate = $"il y a {(int)diff.TotalMinutes} minutes";
+    }
+    else if (diff.TotalHours < 24 && now.Day == Model.Date.Day)
+    {
+        displayedDate = $"il y a {(int)diff.TotalHours} heures";
+    }
+    else
+    {
+        displayedDate = Model.Date.ToString(); // tu peux le formater selon le besoin
+    }
+
+    string displayWhoLiked = "personne pour l'instant";
+    if (Model.Likes.Count != 0)
+    {
+        displayWhoLiked = "";
+        foreach (var like in Model.Likes)
         {
-            displayedDate = "à l'instant";
+            var userWhoLiked = DB.Users.ToList().FirstOrDefault(u => u.Id == like.UserId);
+            displayWhoLiked += userWhoLiked.Name + '\n';
         }
-        else if (diff.TotalMinutes < 60)
-        {
-            displayedDate = $"il y a {(int)diff.TotalMinutes} minutes";
-        }
-        else if (diff.TotalHours < 24 && now.Day == Model.Date.Day)
-        {
-            displayedDate = $"il y a {(int)diff.TotalHours} heures";
-        }
-        else
-        {
-            displayedDate = Model.Date.ToString(); // tu peux le formater selon le besoin
-        }
-    
+    }
 }
 
 <div class="container my-5">
@@ -47,12 +59,10 @@
                 <div>
                     <div class="text-primary small">@displayedDate</div>
                 </div>
-                <div>
-                    <span>
-                        <i class="cmdIcon like-btn @(Model.Likes.Any(p => p.UserId == ((User)Session["ConnectedUser"]).Id) ? "fa-solid" : "fa-regular") fa-thumbs-up" data-id="@Model.Id" title="Like"></i>
-                        <span class="like-count">@Model.Likes.Count</span>
-
-                    </span>
+                <div class="d-flex align-items-center">
+                    <i class="cmdIcon like-btn fa-thumbs-up @(Model.Likes.Any(p => p.UserId == ((User)Session["ConnectedUser"]).Id) ? "fa-solid" : "fa-regular")"
+                       title="@displayWhoLiked"></i>
+                    <span title="@displayWhoLiked" class="like-count ms-1">@Model.Likes.Count</span>
                 </div>
             </div>
 
@@ -62,4 +72,26 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        var photoId       = @Model.Id;
+        var toggleLikeUrl = '@Url.Action("Like", "Photos")';
+        var hasLiked      = @(Model.Likes.Any(p => p.UserId == ((User)Session["ConnectedUser"]).Id).ToString().ToLower());
+
+        $(function(){
+            var btn = $('.like-btn');
+            btn.toggleClass('fa-solid', hasLiked)
+                .toggleClass('fa-regular', !hasLiked);
+
+            btn.on('click', function(){
+                $.post(toggleLikeUrl, { id: photoId }, function(res){
+                    if (!res.success) return alert(res.message);
+                    btn.toggleClass('fa-solid fa-regular');
+                    $('.like-count').text(res.count);
+                }, 'json');
+            });
+        });
+    </script>
+
 }

@@ -17,6 +17,7 @@
                 if (photo.Likes.Count != 0)
                 {
                     hasLiked = photo.Likes.Any(p => p.UserId == connectedUserId);
+                    displayWhoLiked = "";
                     foreach (var like in photo.Likes)
                     {
                         var userWhoLiked = DB.Users.ToList().FirstOrDefault(u => u.Id == like.UserId);
