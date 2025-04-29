@@ -185,6 +185,7 @@
     <Content Include="App_Code\Helper.cshtml" />
     <Content Include="App_Data\Photos.json" />
     <Content Include="App_Data\Likes.json" />
+    <None Include="Properties\PublishProfiles\PhotoManager20250429110326 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Registar2025 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Registre-NC-2025 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
