@@ -236,6 +236,7 @@
     <Content Include="Views\Photos\Index.cshtml" />
     <Content Include="Views\Photos\Create.cshtml" />
     <Content Include="Views\Photos\Details.cshtml" />
+    <Content Include="Views\Photos\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
