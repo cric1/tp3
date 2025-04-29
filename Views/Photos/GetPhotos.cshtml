@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PhotoManager.Models.Photo>
+@{
+    ViewBag.Title = "Index";
+    int connectedUserId = ((User)Session["ConnectedUser"]).Id;
+}
+
+<div class="container py-4">
+    <div class="row">
+        @foreach (var photo in Model)
+        {
+            if (photo.Shared || connectedUserId == photo.OwnerId)
+            {
+
+
+                int likesCount = photo.Likes.Count;
+                bool hasLiked = false;
+                string displayWhoLiked = "personne pour l'instant";
+                if (photo.Likes.Count != 0)
+                {
+                    hasLiked = photo.Likes.Any(p => p.UserId == connectedUserId);
+                    displayWhoLiked = "";
+                    foreach (var like in photo.Likes)
+                    {
+                        var userWhoLiked = DB.Users.ToList().FirstOrDefault(u => u.Id == like.UserId);
+                        displayWhoLiked += userWhoLiked.Name + '\n';
+                    }
+                }
+                DateTime now = DateTime.Now;
+                TimeSpan diff = now - photo.Date;
+                string displayedDate;
+
+                if (diff.TotalMinutes < 1)
+                {
+                    displayedDate = "à l'instant";
+                }
+                else if (diff.TotalMinutes < 60)
+                {
+                    displayedDate = $"il y a {(int)diff.TotalMinutes} minutes";
+                }
+                else if (diff.TotalHours < 24 && now.Day == photo.Date.Day)
+                {
+                    displayedDate = $"il y a {(int)diff.TotalHours} heures";
+                }
+                else
+                {
+                    displayedDate = photo.Date.ToString(); // tu peux le formater selon le besoin
+                }
+                <div class="col-12 col-sm-6 col-md-6 mb-4">
+                    <div class="h-100 text-primary">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <img class="xsmallAvatar" src="@photo.Owner.Avatar" title="@photo.Owner.Name" />
+                                <h5 class="card-title" title="@photo.Description">@photo.Title</h5>
+                                <i class="@(photo.Shared && connectedUserId == photo.OwnerId ? "fa-solid fa-arrows-spin" : "") pt-2 fs-5"></i>
+                            </div>
+                            <a href="/Photos/details/@photo.Id" title="Aller aux détails de la photo"><img class="img-fluid rounded mb-3" src="@photo.Path" alt="..." /></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="/Photos/details" class="text-decoration-none">
+                                    <div class="text-primary small">@displayedDate</div>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2 text-primary text" title="@displayWhoLiked">@likesCount</span>
+                                    <a href="#" class="text-decoration-none text-primary fs-5">
+                                        <i class="@(hasLiked ? "fa-solid" : "fa-regular") fa-thumbs-up"></i>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+    </div>
+</div>

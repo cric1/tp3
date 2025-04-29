@@ -124,7 +124,14 @@ namespace PhotoManager.Controllers
 
             return Json(new { success = true, count });
         }
+      [UserAccess]
+      public ActionResult GetPhotos(bool forceRefresh = false)
+      {
 
+         var photos = DB.Photos.ToList();
+         return PartialView(photos);
 
-    }
+      }
+
+   }
 }
